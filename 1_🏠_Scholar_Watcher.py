@@ -12,8 +12,9 @@ Authors = conf['Authors']
 Settings = conf['Settings']
 
 # need to add server check here
-os.environ["http_proxy"] = Proxy['http_proxy']
-os.environ["https_proxy"] = conf['Proxy']['https_proxy']
+if Settings['mode'] == 'local':
+    os.environ["http_proxy"] = Proxy['http_proxy']
+    os.environ["https_proxy"] = conf['Proxy']['https_proxy']
 
 searcher = SearchEngine()
 citation = Citation(Settings['db_path'])
