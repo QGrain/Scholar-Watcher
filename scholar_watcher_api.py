@@ -3,7 +3,7 @@ import os
 import time
 from scholarly import scholarly
 from configparser import ConfigParser
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 
 class SearchEngine():

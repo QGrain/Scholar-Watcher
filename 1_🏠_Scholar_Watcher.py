@@ -66,6 +66,11 @@ layout_selectbox = st.sidebar.selectbox(
     ('centered', 'wide')
 )
 
+d = st.sidebar.date_input(
+    "Select a date filter",
+    date(2022, 8, 6))
+st.sidebar.write('You select:', d)
+
 
 
 st.header('2 Focus Authors 🎯')
@@ -76,7 +81,7 @@ focus_authors = st.multiselect(
      ['zhiyuzhang', 'daweiwang', 'kaichen', 'guozhumeng', 'xiaofengwang'],
      help='Choose the focus authors, and display the analytics.')
 # st.text(f'You have selected {len(focus_authors)} authors to focus on.')
-st.info(f'You have selected {len(focus_authors)} authors to focus on.')
+st.info(f'You have selected **{len(focus_authors)}** authors to focus on.')
 
 
 
