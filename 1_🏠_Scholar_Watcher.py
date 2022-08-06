@@ -11,6 +11,7 @@ Proxy = conf['Proxy']
 Authors = conf['Authors']
 Settings = conf['Settings']
 
+# need to add server check here
 os.environ["http_proxy"] = Proxy['http_proxy']
 os.environ["https_proxy"] = conf['Proxy']['https_proxy']
 
