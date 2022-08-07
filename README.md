@@ -10,6 +10,8 @@ A web app for watching the authors' google scholar, which is based on scholarly 
 ## Todo
 
 - [ ] Add Chart Analysis for focus authors.
+- [ ] Add daily auto update.
+- [ ] Add database support.
 - [ ] Add Authentication.
 - [ ] Add Security Check.
 - [ ] Deploy on Server.
