@@ -1,7 +1,7 @@
-from turtle import width
 import streamlit as st
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from scholar_watcher_api import *
 from math import ceil
 
@@ -52,10 +52,10 @@ if btn_click == True:
     progress_msg = st.empty()
     progress_bar = st.progress(0)  
     for i, author_label in enumerate(Authors):
-        progress_msg.text(f'Iterate {i+1} authors')
+        progress_msg.text(f'Iterate {i+1}/{len(Authors)} authors')
         p = int(i/len(Authors) * 100)
-        progress_bar.progress(p)
         checkUpdate(searcher, citation, conf, single_author=author_label, force=True)
+        progress_bar.progress(p)
     progress_bar.progress(100)
     btn_click = False
     st.success('Force check citation update done!')
@@ -108,7 +108,29 @@ with tab1:
 
 with tab2:
     st.subheader('Analysis Charts 📈')
+    author_ids = []
+    focus_chart_columns = []
+    for focus_author_label in focus_authors:
+        focus_chart_columns.append(focus_author_label)
+        author_ids.append(Authors[focus_author_label])
+
+    # focus_plot_data, earliest_date = getPlotData(d_all, author_ids)
+    # plt.title('Focus Authors Citation Over Time')
+    # for i in range(len(focus_authors)):
+    #     fig = plt.plot(focus_plot_data[i]['X_DATA'], focus_plot_data[i]['Y_DATA'], label=focus_authors[i])
+    # plt.legend()
+    # plt.xlabel('Date')
+    # plt.ylabel('Citation')
+    # st.pyplot(fig)
+
+    print(author_ids)
+    focus_chart_data = pd.DataFrame(np.array(citation.getSequence(author_ids)).T, columns=focus_chart_columns)
+    # focus_chart_data = pd.DataFrame(np.random.randn(20, 3), columns=['a', 'b', 'c'])
+    print(focus_chart_data)
+
+    st.line_chart(focus_chart_data)
     st.write('Todo...')
+
 with tab3:
     st.subheader('Others 🔎')
     st.write('Todo...')

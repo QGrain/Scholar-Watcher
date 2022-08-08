@@ -69,6 +69,42 @@ class Citation():
                 d_present[author_name] = {'citation':d_all[author_id][self.today], 'increase':d_all[author_id]['increase']}
         return d_present
 
+    def getSequence(self, author_ids):
+        d_all = self.read()
+        seq = []
+        for author_id in author_ids:
+            citation_lines = []
+            for key in sorted(d_all[author_id]):
+                if '-' in key and key != 'increase' and key != 'name':
+                    # print(d_all[author_id][key])
+                    citation_lines.append(int(d_all[author_id][key]))
+            seq.append(citation_lines)
+        print(seq)
+        return seq
+
+
+def getPlotData(d_all, author_ids):
+    data = []
+    first_ptime, earliest_date = 1, datetime(2200, 1, 1)
+    for author_id in author_ids:
+        plot_data = {'X_DATA':[], 'Y_DATA':[]}
+        for key in sorted(d_all[author_id]):
+            if '-' in key and key != 'increase' and key != 'name':
+                plot_data['Y_DATA'].append(int(d_all[author_id][key]))
+                ptime = time.strptime(key, '%Y-%m-%d')
+                plot_data['X_DATA'].append(datetime(ptime[0], ptime[1], ptime[2]))
+                if first_ptime == 1:
+                    earliest_date = ptime
+                    first_ptime = 0
+                if ptime < earliest_date:
+                    earliest_date = ptime
+        data.append(plot_data)
+    
+    for i in range(len(data)):
+        for j in range(len(data[i]['X_DATA'])):
+            data[i]['X_DATA'][j] = (data[i]['X_DATA'][j] - earliest_date).days
+    return (data, earliest_date)
+
 
 def checkUpdate(searcher, citation, conf, single_author=None, force=False):
     today = time.localtime()[0:3]
