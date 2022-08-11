@@ -92,44 +92,50 @@ st.info(f'You have selected **{len(focus_authors)}** authors to focus on.')
 tab1, tab2, tab3 = st.tabs(['🚀 Metrix', '📈 Charts', '🔎 Others'])
 with tab1:
     st.subheader('Citation Metrix 🚀')
-    if Settings['layout'] == 'wide':
-        max_col_num = 8
+    if len(focus_authors) == 0:
+        st.warning('No focus author')
     else:
-        max_col_num = 5
-    row_num = ceil(len(focus_authors) / max_col_num)
-    matrix = []
-    for i in range(row_num):
-        matrix.append(st.columns(max_col_num))
-    for i in range(len(focus_authors)):
-        row = int(i/max_col_num)
-        col = i % max_col_num
-        author_name = d_all[Authors[focus_authors[i]]]['name']
-        matrix[row][col].metric(label=focus_authors[i], value=d_citation[author_name]['citation'], delta=d_citation[author_name]['increase'])
+        if Settings['layout'] == 'wide':
+            max_col_num = 8
+        else:
+            max_col_num = 5
+        row_num = ceil(len(focus_authors) / max_col_num)
+        matrix = []
+        for i in range(row_num):
+            matrix.append(st.columns(max_col_num))
+        for i in range(len(focus_authors)):
+            row = int(i/max_col_num)
+            col = i % max_col_num
+            author_name = d_all[Authors[focus_authors[i]]]['name']
+            matrix[row][col].metric(label=focus_authors[i], value=d_citation[author_name]['citation'], delta=d_citation[author_name]['increase'])
 
 with tab2:
     st.subheader('Analysis Charts 📈')
-    author_ids = []
-    focus_chart_columns = []
-    for focus_author_label in focus_authors:
-        focus_chart_columns.append(focus_author_label)
-        author_ids.append(Authors[focus_author_label])
+    if len(focus_authors) == 0:
+        st.warning('No focus author')
+    else:
+        author_ids = []
+        focus_chart_columns = []
+        for focus_author_label in focus_authors:
+            focus_chart_columns.append(focus_author_label)
+            author_ids.append(Authors[focus_author_label])
 
-    # focus_plot_data, earliest_date = getPlotData(d_all, author_ids)
-    # plt.title('Focus Authors Citation Over Time')
-    # for i in range(len(focus_authors)):
-    #     fig = plt.plot(focus_plot_data[i]['X_DATA'], focus_plot_data[i]['Y_DATA'], label=focus_authors[i])
-    # plt.legend()
-    # plt.xlabel('Date')
-    # plt.ylabel('Citation')
-    # st.pyplot(fig)
+        # focus_plot_data, earliest_date = getPlotData(d_all, author_ids)
+        # plt.title('Focus Authors Citation Over Time')
+        # for i in range(len(focus_authors)):
+        #     fig = plt.plot(focus_plot_data[i]['X_DATA'], focus_plot_data[i]['Y_DATA'], label=focus_authors[i])
+        # plt.legend()
+        # plt.xlabel('Date')
+        # plt.ylabel('Citation')
+        # st.pyplot(fig)
 
-    print(author_ids)
-    focus_chart_data = pd.DataFrame(np.array(citation.getSequence(author_ids)).T, columns=focus_chart_columns)
-    # focus_chart_data = pd.DataFrame(np.random.randn(20, 3), columns=['a', 'b', 'c'])
-    print(focus_chart_data)
+        # print(author_ids)
+        focus_chart_data = pd.DataFrame(np.array(citation.getSequence(author_ids)).T, columns=focus_chart_columns)
+        # focus_chart_data = pd.DataFrame(np.random.randn(20, 3), columns=['a', 'b', 'c'])
+        # print(focus_chart_data)
 
-    st.line_chart(focus_chart_data)
-    st.write('Todo...')
+        st.line_chart(focus_chart_data)
+        st.write('Todo...')
 
 with tab3:
     st.subheader('Others 🔎')
