@@ -36,9 +36,9 @@ st.set_page_config(
     }
 )
 
-# 🎈🧨✨
+# 🎈🧨✨🎉🎯🎖️
 st.title('Scholar Watcher 🏠')
-st.header('1 Google Scholar Citations 🎖️')
+st.header('1 Google Scholar Citations')
 
 cite_tab1, cite_tab2 = st.tabs(['DataFrame (Interactable)', 'Table (Static)'])
 with cite_tab1:
@@ -81,7 +81,7 @@ st.sidebar.info('Well this ⬆ sidebar module is still in developing actually. [
 
 
 
-st.header('2 Focus Authors 🎯')
+st.header('2 Focus Authors')
 
 focus_authors = st.multiselect(
      'Pleasec select the focus authors',
@@ -146,7 +146,7 @@ with tab3:
     st.warning('Todo, you can raise issues to help improve this. (https://github.com/QGrain/Scholar-Watcher/issues)')
 
 
-st.header('3 About This Site 🎉')
+st.header('3 About This Site')
 
 st.markdown('Hello, welcome to **Scholar Watcher**, which could watching the google scholar citation changes of the following authors.')
 with st.expander("Easter Egg"):
