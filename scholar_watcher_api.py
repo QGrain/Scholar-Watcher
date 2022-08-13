@@ -79,7 +79,7 @@ class Citation():
                     # print(d_all[author_id][key])
                     citation_lines.append(int(d_all[author_id][key]))
             seq.append(citation_lines)
-        print(seq)
+        # print(seq)
         return seq
 
 
@@ -108,8 +108,12 @@ def getPlotData(d_all, author_ids):
 
 def checkUpdate(searcher, citation, conf, single_author=None, force=False):
     today = time.localtime()[0:3]
-    last_modified = time.localtime(os.stat(citation.path).st_mtime)[0:3]
-    if today != last_modified or force == True:
+    today_str = datetime.now().strftime('%Y-%m-%d')
+    # last_modified = time.localtime(os.stat(citation.path).st_mtime)[0:3] # bug, sholdn't rely on the modify time. should fetch from json
+    d_all = citation.read()
+    first_author = conf.options('Authors')[0]
+    if today_str not in d_all[conf['Authors'][first_author]] or force == True:
+    # if today != last_modified or force == True:
         if single_author != None:
             author_id = conf['Authors'][single_author]
             result = searcher.search(author_id, method='id')
