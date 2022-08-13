@@ -1,4 +1,4 @@
-numpy==1.16.6
-pandas==0.25.1
 scholarly==1.7.2
-streamlit==1.11.1
+streamlit==1.12.0
+numpy==1.21.6
+pandas==1.3.5
