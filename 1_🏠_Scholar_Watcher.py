@@ -83,7 +83,7 @@ focus_authors = st.multiselect(
      ['zhiyuzhang', 'daweiwang', 'kaichen', 'guozhumeng', 'xiaofengwang'],
      help='Choose the focus authors, and display the analytics.')
 # st.text(f'You have selected {len(focus_authors)} authors to focus on.')
-st.info(f'You have selected **{len(focus_authors)}** authors to focus on.')
+st.info(f'You have selected **{len(focus_authors)}** authors to focus on. (Well this module is still in developing actually [DOGE])')
 
 
 
