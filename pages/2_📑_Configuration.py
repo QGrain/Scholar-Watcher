@@ -1,6 +1,8 @@
 import streamlit as st
 from scholar_watcher_api import *
 
+enable_config = False
+
 
 def getAuthorDict(conf):
     d_authors = {}
@@ -32,13 +34,15 @@ if add_check == True:
     elif add_user_id in d_authors.values():
         st.warning(f'user_id **{add_user_id}** already in configuration, cannot add duplication!')
     # todo: better to add valid check for the id
-    else:
+    elif enable_config == True:
         conf.set('Authors', add_user_label, add_user_id)
         conf.write(open("config.ini", "w", encoding='utf-8'))
         add_success = st.success(f'Success add author: **{add_user_label} = {add_user_id}**')
         conf.read("config.ini", encoding='utf-8')
         d_authors = getAuthorDict(conf)
         add_success = st.success(f'Success add author: **{add_user_label} = {add_user_id}**, and update related variable')
+    else:
+        st.warning(f'Sorry, configuration is not enabled so far for the secuirity concern.')
     add_check = False
 
 st.subheader('Update Author')
@@ -54,11 +58,13 @@ if update_check == True:
     if update_user_label not in d_authors.keys():
         st.warning(f'user_name **{update_user_label}** not in configuration, cannot update no one!')
     # todo: better to add valid check for the id
-    else:
+    elif enable_config == True:
         conf.set('Authors', update_user_label, update_user_id)
         conf.write(open("config.ini", "w", encoding='utf-8'))
         update_success = st.success(f'Success update author: **{add_user_label} = {update_user_id}**')
         conf.read("config.ini", encoding='utf-8')
         d_authors = getAuthorDict(conf)
         update_success = st.success(f'Success update author: **{add_user_label} = {update_user_id}**, and update related variable')
+    else:
+        st.warning(f'Sorry, configuration is not enabled so far for the secuirity concern.')
     update_check = False
