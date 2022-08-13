@@ -40,9 +40,14 @@ st.set_page_config(
 st.title('Scholar Watcher 🏠')
 st.header('1 Google Scholar Citations 🎖️')
 
+cite_tab1, cite_tab2 = st.tabs(['DataFrame (Interactable)', 'Table (Static)'])
+with cite_tab1:
+    st.info('💡 Tips: This DataFrame is **interactable**. You can **sort** the columns by clicking the column name and **resize** the columns by dragging the borders.')
+    st.dataframe(df_present, height=385, width=500)
 
-st.info('Tips: **sort** the columns by clicking the column name and **resize** the columns by dragging the borders.')
-st.dataframe(df_present, height=385)
+with cite_tab2:
+    st.info('💡 Tips: This table is **static**.')
+    st.table(df_present)
 
 st.warning('Citation table would update **once a day**. Force update would update **immediately** and **time-costly**.')
 btn_click = st.button('Force Update', help='This would update the citation immediately')
@@ -72,6 +77,7 @@ d = st.sidebar.date_input(
     "Select a date filter",
     date(2022, 8, 6))
 st.sidebar.write('You select:', d)
+st.sidebar.info('Well this ⬆ sidebar module is still in developing actually. [DOGE]')
 
 
 
@@ -83,9 +89,7 @@ focus_authors = st.multiselect(
      ['zhiyuzhang', 'daweiwang', 'kaichen', 'guozhumeng', 'xiaofengwang'],
      help='Choose the focus authors, and display the analytics.')
 # st.text(f'You have selected {len(focus_authors)} authors to focus on.')
-st.info(f'You have selected **{len(focus_authors)}** authors to focus on. (Well this module is still in developing actually [DOGE])')
-
-
+st.info(f'You have selected **{len(focus_authors)}** authors to focus on.')
 
 
 
@@ -139,7 +143,7 @@ with tab2:
 
 with tab3:
     st.subheader('Others 🔎')
-    st.write('Todo...')
+    st.warning('Todo, you can raise issues to help improve this. (https://github.com/QGrain/Scholar-Watcher/issues)')
 
 
 st.header('3 About This Site 🎉')
@@ -149,5 +153,6 @@ with st.expander("Easter Egg"):
     st.snow()
     st.write("""
         Emmm, I am supposed to put an Easter egg here. But I don't have anyting. DOGE.
+        \nSo, what about following me on github (https://github.com/QGrain/)?
     """)
     st.image("https://avatars.githubusercontent.com/u/38586306?v=4")
