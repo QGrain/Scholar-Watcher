@@ -77,7 +77,7 @@ d = st.sidebar.date_input(
     "Select a date filter",
     date(2022, 8, 6))
 st.sidebar.write('You select:', d)
-st.sidebar.info('Well this ⬆ sidebar module is still in developing actually. [DOGE]')
+st.sidebar.info('Well this ⬆ sidebar module is still in developing actually.')
 
 
 
@@ -86,14 +86,18 @@ st.header('2 Focus Authors')
 focus_authors = st.multiselect(
      'Pleasec select the focus authors',
      conf['Authors'],
-     ['zhiyuzhang', 'daweiwang', 'kaichen', 'guozhumeng', 'xiaofengwang'],
+     ['kaichen', 'guozhumeng', 'xiaofengwang'],
      help='Choose the focus authors, and display the analytics.')
 # st.text(f'You have selected {len(focus_authors)} authors to focus on.')
 st.info(f'You have selected **{len(focus_authors)}** authors to focus on.')
 
+focus_author_ids = []
+focus_chart_columns = []
+for focus_author_label in focus_authors:
+    focus_chart_columns.append(focus_author_label)
+    focus_author_ids.append(Authors[focus_author_label])
 
-
-tab1, tab2, tab3 = st.tabs(['🚀 Metrix', '📈 Charts', '🔎 Others'])
+tab1, tab2, tab3, tab4 = st.tabs(['🚀 Metrix', '📈 Charts', '🔎 Recent Publications', '🎯 Todo'])
 with tab1:
     st.subheader('Citation Metrix 🚀')
     if len(focus_authors) == 0:
@@ -118,12 +122,6 @@ with tab2:
     if len(focus_authors) == 0:
         st.warning('No focus author')
     else:
-        author_ids = []
-        focus_chart_columns = []
-        for focus_author_label in focus_authors:
-            focus_chart_columns.append(focus_author_label)
-            author_ids.append(Authors[focus_author_label])
-
         # focus_plot_data, earliest_date = getPlotData(d_all, author_ids)
         # plt.title('Focus Authors Citation Over Time')
         # for i in range(len(focus_authors)):
@@ -134,7 +132,7 @@ with tab2:
         # st.pyplot(fig)
 
         # print(author_ids)
-        focus_chart_data = pd.DataFrame(np.array(citation.getSequence(author_ids)).T, columns=focus_chart_columns)
+        focus_chart_data = pd.DataFrame(np.array(citation.getSequence(focus_author_ids)).T, columns=focus_chart_columns)
         # focus_chart_data = pd.DataFrame(np.random.randn(20, 3), columns=['a', 'b', 'c'])
         # print(focus_chart_data)
 
@@ -142,17 +140,34 @@ with tab2:
         st.write('Todo...')
 
 with tab3:
-    st.subheader('Others 🔎')
+    st.subheader('Recent Publications 🔎')
+    st.warning('This is runtime fetching, so it will take some time. **Please wait after pressing Go...**')
+    tab3_col1, tab3_col2 = st.columns(2)
+    latest_k = tab3_col1.number_input(label='Input Latest K (1~20) Publications to fetch', min_value=1, max_value=20, value=3, step=1, format='%d')
+    tab3_col2.caption('Click here ⬇')
+    latest_go = tab3_col2.button('GO!')
+    if latest_go == True:
+        for i, author_id in enumerate(focus_author_ids):
+            # recent_pubs = searcher.fetchRecentTopKPub(author_id, 3)
+            latest_pubs = fetchLatestKPub(author_id, latest_k)
+            with st.expander(f"{focus_authors[i]}\'s latest {latest_k} publications"):
+                # st.write(recent_pubs)
+                st.write(latest_pubs)
+        latest_go = False
+
+with tab4:
+    st.subheader('Todo 🎯')
     st.warning('Todo, you can raise issues to help improve this. (https://github.com/QGrain/Scholar-Watcher/issues)')
 
 
 st.header('3 About This Site')
 
 st.markdown('Hello, welcome to **Scholar Watcher**, which could watching the google scholar citation changes of the following authors.')
+
 with st.expander("Easter Egg"):
-    st.snow()
+    # st.snow()
     st.write("""
-        Emmm, I am supposed to put an Easter egg here. But I don't have anyting. DOGE.
+        Emmm, I am supposed to put an Easter egg here. But I don't have anyting.  :p
         \nSo, what about following me on github (https://github.com/QGrain/)?
     """)
     st.image("https://avatars.githubusercontent.com/u/38586306?v=4")
