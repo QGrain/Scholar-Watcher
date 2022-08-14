@@ -56,4 +56,4 @@ Any improvements (not only in [Todo](#Todo)) are welcome, in the form of PR.
 - [ ] Add Authentication.
 - [ ] Add Security Check.
 - [x] Deploy on Server.
-- [ ] Add recent publications.
+- [x] Add latest K publications.
