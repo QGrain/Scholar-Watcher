@@ -6,6 +6,21 @@ from configparser import ConfigParser
 from datetime import datetime, timedelta, date
 import requests
 from bs4 import BeautifulSoup
+import threading
+
+
+g_timer_flag = 1
+
+
+class TimerManager():
+    def __init__(self, thread_handler): 
+        self.timer_handler = thread_handler
+
+    def __del__(self): 
+        global g_timer_flag
+        g_timer_flag = 0
+        print("Main thread exit, Timer should cancel as well", g_timer_flag)
+        self.timer_handler.cancel()
 
 
 class SearchEngine():
@@ -168,6 +183,28 @@ def fetchLatestKPub(user_id, latest_k):
             num_citations = 0
         latest_pubs[title] = {'pub_year': pub_year, 'num_citations': num_citations}
     return latest_pubs
+
+
+def autoUpdateEveryDay(searcher, citation, conf):
+    global g_timer_flag
+    if g_timer_flag != 0:
+        print('auto checkUpdate() once a day')
+        checkUpdate(searcher, citation, conf, single_author=None, force=True)
+        # timer = threading.Timer(86400, autoUpdateEveryDay, (searcher, citation, conf))
+        # timer.start()
+
+
+# todo: solve child thread exit problem. or it would wait for a hole day.
+def getSecondsToTime(hour, minute, second):
+    now = datetime.now()
+    target_time = datetime(now.year, now.month, now.day, hour, minute, second)
+    tomorrow_target_time = target_time + timedelta(days=1)
+    if now.hour <= hour and now.minute <= minute and now.second <= second:
+        rest_seconds = (target_time - now).seconds
+    else:
+        rest_seconds = (tomorrow_target_time - now).seconds
+    return rest_seconds
+    
 
 
 if __name__ == '__main__':

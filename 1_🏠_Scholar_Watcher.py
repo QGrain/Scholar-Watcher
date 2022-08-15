@@ -1,9 +1,11 @@
+from concurrent.futures import thread
 import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scholar_watcher_api import *
 from math import ceil
+
 
 conf = ConfigParser()
 conf.read("config.ini", encoding='utf-8')
@@ -18,6 +20,13 @@ if Settings['mode'] == 'local':
 
 searcher = SearchEngine()
 citation = Citation(Settings['db_path'])
+
+# auto update at 2 am everyday
+# see there is a todo about this timer
+# initial_timer = threading.Timer(getSecondsToTime(1, 1, 0), autoUpdateEveryDay, (searcher, citation, conf)).start()
+# timer_manager = TimerManager(initial_timer)
+
+# default checkUpdate()
 checkUpdate(searcher, citation, conf, single_author=None, force=False)
 d_all = citation.read()
 d_citation = citation.present()
