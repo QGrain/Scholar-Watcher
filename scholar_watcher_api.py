@@ -116,6 +116,10 @@ class Citation():
         # print(seq)
         return seq
 
+    def copyOneDay(self, date):
+        pass
+        # If yesterday is blank, then recursively copy the day before yesterday
+
 
 def getPlotData(d_all, author_ids):
     data = []
