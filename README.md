@@ -1,5 +1,18 @@
-# Scholar-Watcher
-A web app for watching the authors' google scholar, which is based on scholarly and streamlit.
+<h1 align="center">
+  Scholar-Watcher
+</h1>
+
+<p align="center">
+  A web app for watching the authors' google scholar, which is based on scholarly and streamlit.
+</p>
+
+<p align="center">
+<a href="https://github.com/QGrain/Scholar-Watcher/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/QGrain/Scholar-Watcher"></a>
+<a href="https://github.com/QGrain/Scholar-Watcher/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/QGrain/Scholar-Watcher"></a>
+<a href="https://github.com/QGrain/Scholar-Watcher/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/QGrain/Scholar-Watcher"></a>
+<a href="https://github.com/QGrain/Scholar-Watcher/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/QGrain/Scholar-Watcher"></a>
+</p>
+
 
 ## Features
 
@@ -57,3 +70,9 @@ Any improvements (not only in [Todo](#Todo)) are welcome, in the form of PR.
 - [ ] Add Security Check.
 - [x] Deploy on Server.
 - [x] Add latest K publications.
+
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/QGrain/Scholar-Watcher.svg)](https://starchart.cc/QGrain/Scholar-Watcher)
+
