@@ -11,6 +11,8 @@
 <a href="https://github.com/QGrain/Scholar-Watcher/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/QGrain/Scholar-Watcher"></a>
 <a href="https://github.com/QGrain/Scholar-Watcher/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/QGrain/Scholar-Watcher"></a>
 <a href="https://github.com/QGrain/Scholar-Watcher/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/QGrain/Scholar-Watcher"></a>
+  <img alt="LGTM Grade" src="https://img.shields.io/lgtm/grade/python/github/QGrain/Scholar-Watcher">
+  <img alt="GitHub search hit counter" src="https://img.shields.io/github/search/QGrain/Scholar-Watcher/search">
 </p>
 
 
