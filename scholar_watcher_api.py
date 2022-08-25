@@ -86,7 +86,8 @@ class Citation():
         today_citation = d[author_id][self.today]
         try:
             yesterday_citation = d[author_id][self.yesterday]
-        except:
+        except Exception as e:
+            print('Execption: ', e)
             yesterday_citation = 0
         d[author_id]['increase'] = today_citation - yesterday_citation
         self.write(d)
@@ -145,14 +146,14 @@ def getPlotData(d_all, author_ids):
 
 
 def checkUpdate(searcher, citation, conf, single_author=None, force=False):
-    today = time.localtime()[0:3]
+    # today = time.localtime()[0:3]
     today_str = datetime.now().strftime('%Y-%m-%d')
     # last_modified = time.localtime(os.stat(citation.path).st_mtime)[0:3] # bug, sholdn't rely on the modify time. should fetch from json
     d_all = citation.read()
     first_author = conf.options('Authors')[0]
     if today_str not in d_all[conf['Authors'][first_author]] or force == True:
     # if today != last_modified or force == True:
-        if single_author != None:
+        if single_author is not None:
             author_id = conf['Authors'][single_author]
             result = searcher.search(author_id, method='id')
             citation.update(author_id, result['name'], result['citedby'])
@@ -183,7 +184,7 @@ def fetchLatestKPub(user_id, latest_k):
         title = recent_pubs[i].contents[0].contents[0].string
         pub_year = recent_pubs[i].contents[0].contents[2].contents[1].string.split(',')[-1]
         num_citations = recent_pubs[i].contents[1].string
-        if num_citations == None:
+        if num_citations is None:
             num_citations = 0
         latest_pubs[title] = {'pub_year': pub_year, 'num_citations': num_citations}
     return latest_pubs
