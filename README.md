@@ -12,7 +12,6 @@
 <a href="https://github.com/QGrain/Scholar-Watcher/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/QGrain/Scholar-Watcher"></a>
 <a href="https://github.com/QGrain/Scholar-Watcher/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/QGrain/Scholar-Watcher"></a>
   <img alt="LGTM Grade" src="https://img.shields.io/lgtm/grade/python/github/QGrain/Scholar-Watcher">
-  <img alt="GitHub search hit counter" src="https://img.shields.io/github/search/QGrain/Scholar-Watcher/search">
 </p>
 
 
@@ -58,6 +57,8 @@ streamlit run 1_🏠_Scholar_Watcher.py # which is the home page
   - Deploy on streamlit cloud, now it is open for access
 - v0.1.2 (2022-08-14)
   - Add a new feature mentioned in [#issue2](https://github.com/QGrain/Scholar-Watcher/issues/2)
+- v0.1.3 (2022-08-26)
+  - Support auto update at 00:00:01 on server's localtime (That is 08:00:01 of GMT+8)
 
 ## Development and Contribution
 
@@ -66,7 +67,7 @@ Any improvements (not only in [Todo](#Todo)) are welcome, in the form of PR.
 ## Todo
 
 - [x] Add Chart Analysis for focus authors.
-- [ ] Add daily auto update.
+- [x] Add daily auto update.
 - [ ] Add database support.
 - [ ] Add Authentication.
 - [ ] Add Security Check.
