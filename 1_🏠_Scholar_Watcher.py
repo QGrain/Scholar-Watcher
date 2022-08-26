@@ -21,10 +21,10 @@ if Settings['mode'] == 'local':
 searcher = SearchEngine()
 citation = Citation(Settings['db_path'])
 
-# auto update at 2 am everyday
-# see there is a todo about this timer
-# initial_timer = threading.Timer(getSecondsToTime(1, 1, 0), autoUpdateEveryDay, (searcher, citation, conf)).start()
-# timer_manager = TimerManager(initial_timer)
+# auto update at 00:00:01 everyday
+initial_timer = threading.Timer(getSecondsToTime(0, 0, 1), autoUpdateEveryDay, (searcher, citation, conf))
+initial_timer.setDaemon(True)
+initial_timer.start()
 
 # default checkUpdate()
 checkUpdate(searcher, citation, conf, single_author=None, force=False)

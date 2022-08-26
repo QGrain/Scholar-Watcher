@@ -9,20 +9,6 @@ from bs4 import BeautifulSoup
 import threading
 
 
-g_timer_flag = 1
-
-
-class TimerManager():
-    def __init__(self, thread_handler): 
-        self.timer_handler = thread_handler
-
-    def __del__(self): 
-        global g_timer_flag
-        g_timer_flag = 0
-        print("Main thread exit, Timer should cancel as well", g_timer_flag)
-        self.timer_handler.cancel()
-
-
 class SearchEngine():
     def __init__(self):
         pass
@@ -191,12 +177,10 @@ def fetchLatestKPub(user_id, latest_k):
 
 
 def autoUpdateEveryDay(searcher, citation, conf):
-    global g_timer_flag
-    if g_timer_flag != 0:
-        print('auto checkUpdate() once a day')
-        checkUpdate(searcher, citation, conf, single_author=None, force=True)
-        # timer = threading.Timer(86400, autoUpdateEveryDay, (searcher, citation, conf))
-        # timer.start()
+    print('\nAuto checkUpdate() once a day')
+    checkUpdate(searcher, citation, conf, single_author=None, force=True)
+    timer = threading.Timer(86400, autoUpdateEveryDay, (searcher, citation, conf))
+    timer.start()
 
 
 # todo: solve child thread exit problem. or it would wait for a hole day.
