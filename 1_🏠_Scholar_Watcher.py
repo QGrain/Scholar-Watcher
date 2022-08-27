@@ -22,7 +22,7 @@ searcher = SearchEngine()
 citation = Citation(Settings["db_path"])
 
 # auto update at 00:00:01 everyday
-initial_timer = threading.Timer(getSecondsToTime(8, 5, 1), autoUpdateEveryDay, (searcher, citation, conf))
+initial_timer = threading.Timer(getSecondsToTime(0, 5, 1), autoUpdateEveryDay, (searcher, citation, conf))
 initial_timer.setDaemon(True)
 initial_timer.start()
 
