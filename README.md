@@ -73,6 +73,7 @@ Any improvements (not only in [Todo](#Todo)) are welcome, in the form of PR.
 - [ ] Add Security Check.
 - [x] Deploy on Server.
 - [x] Add latest K publications.
+- [x] Add show citation log in Debug page.
 
 
 ## Stargazers over time
