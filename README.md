@@ -57,8 +57,10 @@ streamlit run 1_🏠_Scholar_Watcher.py # which is the home page
   - Deploy on streamlit cloud, now it is open for access
 - v0.1.2 (2022-08-14)
   - Add a new feature mentioned in [#issue2](https://github.com/QGrain/Scholar-Watcher/issues/2)
-- v0.1.3 (2022-08-26)
+- v0.1.3 alpha (2022-08-26)
   - Support auto update at 00:00:01 on server's localtime (That is 08:00:01 of GMT+8)
+- v0.1.3 beta (2022-08-28)
+  - Remove auto update for the sake of Streamlit cloud. Add Debug page to show info
 
 ## Development and Contribution
 
@@ -67,7 +69,7 @@ Any improvements (not only in [Todo](#Todo)) are welcome, in the form of PR.
 ## Todo
 
 - [x] Add Chart Analysis for focus authors.
-- [x] Add daily auto update.
+- [ ] Add daily auto update. **(Bug to fix)**
 - [ ] Add database support.
 - [ ] Add Authentication.
 - [ ] Add Security Check.
