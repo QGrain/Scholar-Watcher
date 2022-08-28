@@ -47,7 +47,7 @@ class Citation():
     def __init__(self, path):
         self.path = path
         self.today = datetime.now().strftime("%Y-%m-%d")
-        self.yesterday = (datetime.now() + timedelta(days=-1)).strftime("%Y-%m-%d")
+        # self.yesterday = (datetime.now() + timedelta(days=-1)).strftime("%Y-%m-%d")
         if not os.path.isfile(self.path):
             self.write({})
 
@@ -67,18 +67,25 @@ class Citation():
         d[author_id][self.today] = citation
         self.write(d)
 
+    # compare with the last record (instead of yesterday)
     def compare(self, author_id):
         d = self.read()
         today_citation = d[author_id][self.today]
+        last_citation = 0
         try:
-            yesterday_citation = d[author_id][self.yesterday]
+            for last_record in sorted(d[author_id])[::-1]:
+                if "-" in last_record and last_record != self.today:
+                    last_citation = d[author_id][last_record]
+                    break
+            # yesterday_citation = d[author_id][self.yesterday]
         except Exception as e:
             print("Execption: ", e)
-            yesterday_citation = 0
-        d[author_id]["increase"] = today_citation - yesterday_citation
+            # yesterday_citation = 0
+            last_citation = 0
+        d[author_id]["increase"] = today_citation - last_citation
         self.write(d)
         
-        return (today_citation, yesterday_citation)
+        return (today_citation, last_citation)
 
     # return today's citation and the incrase for presentation
     def present(self):
@@ -143,15 +150,15 @@ def checkUpdate(searcher, citation, conf, single_author=None, force=False):
             author_id = conf["Authors"][single_author]
             result = searcher.search(author_id, method="id")
             citation.update(author_id, result["name"], result["citedby"])
-            today_citation, yesterday_citation = citation.compare(author_id)
-            print("%s today citation: %d, yesterday citation: %d, %d ⬆"%(result["name"], today_citation, yesterday_citation, (today_citation-yesterday_citation)))
+            today_citation, last_citation = citation.compare(author_id)
+            print("%s today citation: %d, last citation: %d, %d ⬆"%(result["name"], today_citation, last_citation, (today_citation-last_citation)))
         else:
             for author_label in conf["Authors"]:
                 author_id = conf["Authors"][author_label]
                 result = searcher.search(author_id, method="id")
                 citation.update(author_id, result["name"], result["citedby"])
-                today_citation, yesterday_citation = citation.compare(author_id)
-                print("%s today citation: %d, yesterday citation: %d, %d ⬆"%(result["name"], today_citation, yesterday_citation, (today_citation-yesterday_citation)))
+                today_citation, last_citation = citation.compare(author_id)
+                print("%s today citation: %d, last citation: %d, %d ⬆"%(result["name"], today_citation, last_citation, (today_citation-last_citation)))
 
 
 
